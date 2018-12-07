@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/node_modules/mditor/dist/css/mditor.min.css">
+  <script src="/node_modules/mditor/dist/js/mditor.min.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <h1>发表文章页</h1>
+    <hr>
+
+    <form id="form">
+      <div class="form-group">
+        <label for="">文章标题：</label>
+        <input type="text" name="title" id="title" class="form-control" required maxlength="30">
+      </div>
+
+      <div class="form-group">
+        <label for="">文章内容：</label>
+        <!-- 添加 textarea 元素 -->
+        <textarea name="content" id="editor" class="form-control"></textarea>
+      </div>
+
+      <div class="form-group clearfix">
+        <input type="submit" value="发表文章" class="btn btn-primary pull-right">
+      </div>
+    </form>
+  </div>
+</body>
+
+<script>
+    // 创建 Mditor 实例
+    var mditor = Mditor.fromTextarea(document.getElementById('editor'));
+    // 案例
+    // mditor.on('ready', function () {
+    //     console.log(mditor.value);
+    //     mditor.value = '** hello **';
+    // });
+      $('#form').on("submit",function(e){
+          e.preventDefault()
+          $.ajax({
+              type:"POST",
+              url:"/article/add",
+              data:{
+                  title:$("#title").val(),//文章的标题
+                  conten:mditor.value,//文章的内容
+                  userId:'<%= user.id%>',//作者的id
+              },
+              dataType:"json",
+              success:function(res){
+                  console.log(res)
+                  if(res.status===200){
+                    alert("发布成功")
+                    // 从后台获取id,进行跳转
+                    location.href=`/article/detail?id=${res.articleId}`
+                  }else{
+                    alert(res.msg)
+                  }
+              }
+
+          })
+      })
+</script>
+</html>

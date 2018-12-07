@@ -5,6 +5,7 @@ let session = require('express-session')
 // 引入路由
 let indexRouter = require("./router/indexRouter")
 let userRouter = require("./router/userRouter")
+let articleRouter =require("./router/articleRouter")
 
 // 引入body-parser并使用
 let bodyParser = require('body-parser');
@@ -27,6 +28,7 @@ app.use(bodyParser.json())
 // 使用路由
 app.use(indexRouter)
 app.use(userRouter)
+app.use(articleRouter)
 
 
 app.listen('3300',()=>{
