@@ -18,7 +18,16 @@ module.exports = {
         cb(null,results)
       })
     },
-    particulars:(newdata2)=>{
+    // 8.0文章详情页查询
+    particulars:(articleId,cb)=>{
+      let sqlStr ='select userdata.*, users.nickname from userdata LEFT JOIN users ON userdata.userId=users.id WHERE userdata.id=?'
+      connection.query(sqlStr, [articleId], (err, results) => {
+             if (err) return cb(err, null)
+             cb(null, results)
+          })
+    },
+    // 9.0文章编辑页面
+    edit:()=>{
       
     }
 }

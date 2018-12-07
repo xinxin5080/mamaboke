@@ -10,12 +10,12 @@
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<%- include('../layout/header.ejs')%>
   <div class="container-fluid">
     <h1 style="text-align:center;">
       <%= article.title %>
 
-      <% if(islogin && user.id === article.userId){ %>
+      <% if(isLogin && user.id === article.userId){ %>
         <a href="/article/edit?id=<%= article.id %>" class="btn btn-link pull-right">编辑此文章</a>
       <% } %>
 
@@ -31,10 +31,10 @@
 
 
     <div class="content">
-      <%- article.content %>
+      <%- article.conten %>
+      <!-- <%= article.conten %> -->
     </div>
   </div>
-
-
+  <%- include('../layout/footer.ejs')%>
 </body>
-</html>
+</html

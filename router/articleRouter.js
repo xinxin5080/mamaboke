@@ -21,4 +21,7 @@ router.post("/article/add",controller.handlePostText)
 // 8.0文章详情页
 router.get("/article/detail",controller.showDetailPage)
 
+// 9.0文章编辑页面
+router.delete("/article/edit",controller.handleGetEdit)
+
 module.exports = router
